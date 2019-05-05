@@ -1,9 +1,9 @@
 """
     Infinite <: Real
 
-A type with two values, `PosInf` (or `∞`) and `NegInf` representing ``\\pm\\infty``.
+A type with two values, `PosInf` (or `∞`) and `NegInf` representing ``±∞``.
 
-Binary operations with types supporting infinity (such as `Float64`) will always promote to that type, otherwise we usually return an `Infinite`. The exception is `/(::Real,::Infinite)` which always returns the type of the first argument.
+Arithmetic with values of other types will be promoted to either the other type if it supports infinity natively or to [`InfExtended`](@ref).
 """
 struct Infinite <: Real
   signbit :: Bool
