@@ -27,9 +27,19 @@ end
 InfExtended{T}(x::Real) where {T<:Real} = InfExtended{T}(isinf(x) ? convert(Infinite, x) : convert(T, x))
 InfExtended{T}(x::InfExtended) where {T<:Real} = InfExtended{T}(x.val)
 
-InfExtended(::Type{T}) where {T<:Real} = hasinf(T) ? T : InfExtended{T}
+"""
+    InfExtended(T)
 
-@generated InfExtended(x::T) where {T<:Real} = hasinf(T) ? :x : :(InfExtended{T}(x))
+The union of `T` and `Infinite`: either `T` if infinity can be represented as a `T`, or else `InfExtended{T}`.
+"""
+@generated InfExtended(::Type{T}) where {T<:Real} = hasinf(T) ? T : InfExtended{T}
+
+"""
+    InfExtended(x)
+
+Converts `x` to a `InfExtended(typeof(x))`.
+"""
+@generated InfExtended(x::T) where {T<:Real} = hasinf(T) ? :x : :($(InfExtended{T})(x))
 
 """
     InfMinusInfError()
@@ -38,7 +48,7 @@ Infinity was subtracted from infinity.
 """
 struct InfMinusInfError <: Exception end
 
-Base.showerror(io::IO, e::InfMinusInfError) = print("∞-∞ is undefined")
+Base.showerror(io::IO, e::InfMinusInfError) = print(io, "∞-∞ is undefined")
 
 Utils.posinf(::Type{Infinite}) = PosInf
 Utils.posinf(::Type{T}) where {T<:InfExtended} = T(PosInf)

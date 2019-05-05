@@ -1,6 +1,6 @@
 module Infinity
 
-export Infinite, PosInf, NegInf, ∞, InfiniteOr, InfMinusInfError, InfExtended
+export Infinite, PosInf, NegInf, ∞, InfMinusInfError, InfExtended
 
 include("utils.jl")
 include("base.jl")
