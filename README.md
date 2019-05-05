@@ -16,13 +16,13 @@ These types support:
 
 In Julia, type `]` then run
 
-```
+```julia
 pkg> install https://github.com/cjdoris/Infinity.jl
 ```
 
 ## Example
 
-```
+```julia
 julia> using Infinity
 
 julia> x = [1,2,3,∞,-1,-∞]
