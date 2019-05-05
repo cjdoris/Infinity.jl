@@ -7,10 +7,10 @@ Base.typemax(::Type{Infinite}) = PosInf
 Base.typemax(::Type{T}) where {T<:InfExtended} = T(PosInf)
 
 Base.:+(x::Infinite) = x
-Base.:+(x::InfExtended) = InfExtended(+x.val)
+Base.:+(x::T) where {T<:InfExtended} = T(+x.val)
 
 Base.:-(x::Infinite) = Infinite(!x.signbit)
-Base.:-(x::InfExtended) = InfExtended(-x.val)
+Base.:-(x::T) where {T<:InfExtended} = T(-x.val)
 
 Base.:+(x::Infinite, y::Infinite) = signbit(x)==signbit(y) ? x : throw(InfMinusInfError())
 Base.:+(x::T, y::T) where {T<:InfExtended} = isinf(x) ? isinf(y) ? T(x.val+y.val) : x : isinf(y) ? y : T(x.val+y.val)
