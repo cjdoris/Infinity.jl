@@ -26,6 +26,7 @@ end
 
 InfExtended{T}(x::Real) where {T<:Real} = InfExtended{T}(isinf(x) ? convert(Infinite, x) : convert(T, x))
 InfExtended{T}(x::InfExtended) where {T<:Real} = InfExtended{T}(x.val)
+InfExtended{T}(x::InfExtended{T}) where {T<:Real} = x
 
 """
     InfExtended(T)

@@ -14,10 +14,9 @@ end
 Base.convert(::Type{T}, x::InfExtended) where {T<:Real} = convert(T, x.val)
 Base.convert(::Type{Infinite}, x::Real) = isinf(x) ? Infinite(signbit(x)) : throw(InexactError(:convert,Infinite,x))
 Base.convert(::Type{Infinite}, x::Infinite) = x
-Base.convert(::Type{InfExtended{T}}, x::T) where {T<:Real} = InfExtended{T}(x)
-Base.convert(::Type{InfExtended{T}}, x::S) where {T<:Real, S<:Real} = InfExtended{T}(convert(T, x))
-Base.convert(::Type{InfExtended{T}}, x::Infinite) where {T<:Real} = InfExtended{T}(x)
-Base.convert(::Type{InfExtended{T}}, x::InfExtended) where {T<:Real} = convert(InfExtended{T}, x.val)
+Base.convert(::Type{T}, x::S) where {T<:InfExtended, S<:Real} = T(x)
+Base.convert(::Type{T}, x::InfExtended) where {T<:InfExtended} = T(x)
+Base.convert(::Type{T}, x::Infinite) where {T<:InfExtended} = T(x)
 
 (::Type{T})(x::InfExtended) where {T<:AbstractFloat} = convert(T, x)
 (::Type{T})(x::Infinite) where {T<:AbstractFloat} = convert(T, x)
