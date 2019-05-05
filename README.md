@@ -8,7 +8,7 @@ Promotion between `Infinite` and some `T <: Real` will yield either:
 
 The following `Base` functions are extended for these types:
 * Arithmetic: `+`, `-`, `*`, `/`
-* Comparison: `==`, `<`, `≤`, `hash`, `signbit`, `sign`, `isfinite`, `isinf`
+* Comparison: `==`, `<`, `≤`, `hash`, `signbit`, `sign`, `isfinite`, `isinf`, `isapprox`
 * Conversion: `promote`, `convert`, `float`, `widen`, `big`
 * Random: `rand(Infinite)`
 
