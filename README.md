@@ -1,10 +1,10 @@
 # Infinity.jl
 
-Provides objects `PosInf` (or `∞`) and `NegInf` representing positive and negative infinity. They are the only elements of `Infinite <: Real`.
+Provides `∞ :: Infinite <: Real` representing positive infinity and `-∞` is negative infinity.
 
 Promotion between `Infinite` and some `T <: Real` will yield either:
 * `T` itself if it can natively represent infinity (e.g. `Float64`, `Rational`); or
-* `InfExtended{T} <: Real` otherwise, which represents the union of `T` and `Infinite`.
+* `InfExtended{T} <: Real` otherwise, which represents the union of `T` and `Infinite`. (See the examples.)
 
 These types support:
 * Arithmetic: `+`, `-`, `*`, `/`
