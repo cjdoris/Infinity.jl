@@ -40,7 +40,7 @@ The union of `T` and `Infinite`: either `T` if infinity can be represented as a 
 
 Converts `x` to a `InfExtended(typeof(x))`.
 """
-@generated InfExtended(x::T) where {T<:Real} = hasinf(T) ? :x : :($(InfExtended{T})(x))
+@generated InfExtended(x::T) where {T<:Real} = hasinf(T) ? :x : :($(InfExtended(T))(x))
 
 """
     InfMinusInfError()

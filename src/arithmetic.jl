@@ -35,7 +35,7 @@ Base.:*(x::T, y::T) where {T<:InfExtended} =
   end
 
 Base.:/(x::Infinite, y::Infinite) = throw(DivideError())
-Base.:/(x::InfExtended{T}, y::InfExtended{T}) where {T<:Real} = InfExtended{typeof(one(T)/one(T))}(
+@generated Base.:/(x::InfExtended{T}, y::InfExtended{T}) where {T<:Real} = :(convert($(InfExtended(typeof(one(T)/one(T)))),
   if isinf(x)
     if isinf(y)
       throw(DivideError())
@@ -46,6 +46,29 @@ Base.:/(x::InfExtended{T}, y::InfExtended{T}) where {T<:Real} = InfExtended{type
     if isinf(y)
       zero(T)
     else
-      x / y
+      x.val / y.val
     end
-  end)
+  end))
+
+Base.abs(x::Infinite) = PosInf
+Base.abs(x::InfExtended{T}) where {T<:Real} = InfExtended{T}(abs(x.val))
+
+Base.:(//)(x::Infinite, y::Infinite) = throw(DivideError())
+@generated Base.:(//)(x::InfExtended{T}, y::InfExtended{S}) where {T<:Real,S<:Real} = :(convert($(InfExtended(typeof(one(T)//one(S)))), 
+  if isinf(x)
+    if isinf(y)
+      throw(DivideError())
+    else
+      Infinite(signbit(x) ⊻ signbit(y))
+    end
+  else
+    if isinf(y)
+      zero(T)
+    else
+      x.val // y.val
+    end
+  end))
+Base.:(//)(x::InfExtended, y::Real) = //(promote(x,y)...)
+Base.:(//)(x::Real, y::InfExtended) = //(promote(x,y)...)
+Base.:(//)(x::Infinite, y::Real) = //(promote(x,y)...)
+Base.:(//)(x::Real, y::Infinite) = //(promote(x,y)...)

@@ -8,10 +8,10 @@ Base.promote_rule(::Type{InfExtended{T}}, ::Type{Infinite}) where {T<:Real} = In
   pinf = posinf(T)
   ninf = neginf(T)
   mkpinf = pinf===nothing ? :(throw(InexactError(:convert,T,x))) : pinf
-  mkninf = ninf===nothing ? :(throw(InexactError(:convert,T,x))) : pinf
-  :(x.signbit ? $mkpinf : $mkninf)
+  mkninf = ninf===nothing ? :(throw(InexactError(:convert,T,x))) : ninf
+  :(x.signbit ? $mkninf : $mkpinf)
 end
-Base.convert(::Type{T}, x::InfExtended) where {T<:Real} = convert(T, x.val)
+@generated Base.convert(::Type{T}, x::InfExtended{S}) where {T<:Real,S<:Real} = :(convert($(typeof(convert(T,zero(S)))), x.val))
 Base.convert(::Type{Infinite}, x::Real) = isinf(x) ? Infinite(signbit(x)) : throw(InexactError(:convert,Infinite,x))
 Base.convert(::Type{Infinite}, x::Infinite) = x
 Base.convert(::Type{T}, x::S) where {T<:InfExtended, S<:Real} = T(x)
