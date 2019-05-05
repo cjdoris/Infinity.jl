@@ -1,7 +1,7 @@
 """
     Infinite <: Real
 
-A type with two values, `PosInf` (or `∞`) and `NegInf` representing ``±∞``.
+A type with two values, `∞` and `-∞` (or `PosInf` and `NegInf`).
 
 Arithmetic with values of other types will be promoted to either the other type if it supports infinity natively or to [`InfExtended`](@ref).
 """
@@ -14,7 +14,7 @@ const NegInf = Infinite(true)
 const ∞ = PosInf
 
 """
-    InfExtended{T}
+    InfExtended{T} <: Real
 
 The type `T` extended with positive and negative infinity.
 """
