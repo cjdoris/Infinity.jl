@@ -27,7 +27,7 @@ Base.signbit(x::Infinite) = x.signbit
 Base.signbit(x::InfExtended) = signbit(x.val)
 
 Base.sign(x::Infinite) = isposinf(x) ? 1 : -1
-Base.sign(x::InfExtended) = sign(x.val)
+Base.sign(x::InfExtended{T}) where {T<:Real} = convert(T, sign(x.val))
 
 Base.isapprox(x::Infinite, y::Infinite) = x==y
 Base.isapprox(x::InfExtended, y::InfExtended; opts...) = isinf(x)==isinf(y) && isapprox(x.val, y.val; opts...)
