@@ -83,4 +83,8 @@ using Infinity, Infinity.Utils, Test
     @inferred sign(InfExtended{Int32}(∞))
   end
 
+  @testset "conversions" begin
+    @test convert(Infinite, InfExtended{Int}(∞)) === ∞
+  end
+
 end
