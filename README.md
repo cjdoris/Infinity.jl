@@ -22,13 +22,13 @@ Additionally there is a submodule `Utils` exporting infinity-related functions:
 
 In Julia, type `]` then run
 
-```
-pkg> install https://github.com/cjdoris/Infinity.jl
+```julia
+pkg> add Infinity
 ```
 
 ## Example
 
-```
+```julia
 julia> using Infinity
 
 julia> x = [1,2,3,∞,-1,-∞]
