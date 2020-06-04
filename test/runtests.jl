@@ -1,4 +1,4 @@
-using Infinity, Infinity.Utils, Test
+using Infinity, Infinity.Utils, Test, Dates
 
 @testset "Infinity" begin
   @testset "utils" begin
@@ -14,4 +14,5 @@ using Infinity, Infinity.Utils, Test
   end
 
   include("infextendedreal.jl")
+  include("infextendedtime.jl")
 end
