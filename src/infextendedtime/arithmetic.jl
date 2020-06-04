@@ -1,12 +1,12 @@
-Base.typemin(::Type{T}) where {T<:InfExtendedTime} = T(NegInf)
-Base.typemax(::Type{T}) where {T<:InfExtendedTime} = T(PosInf)
+Base.typemin(::Type{T}) where {T<:InfExtendedTime} = Utils.neginf(T)
+Base.typemax(::Type{T}) where {T<:InfExtendedTime} = Utils.posinf(T)
 
 function Base.:+(x::T, y::S) where {T<:InfExtendedTime, S<:Period}
     isinf(x) ? x : T(x.finitevalue + y)
 end
 Base.:+(x::S, y::T) where {T<:InfExtendedTime, S<:Period} = y + x
 Base.:-(x::T, y::S) where {T<:InfExtendedTime, S<:Period} = x + -y
-Base.:-(x::S, y::T) where {T<:InfExtendedTime, S<:Period} = isposinf(y) ? T(NegInf) : y + -x
+Base.:-(x::S, y::T) where {T<:InfExtendedTime, S<:Period} = isposinf(y) ? Utils.neginf(T) : y + -x
 
 function Base.:+(x::T, y::Infinite) where {T<:InfExtendedTime}
     if isfinite(x)
