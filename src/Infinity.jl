@@ -1,6 +1,6 @@
 module Infinity
 
-using Dates
+using Dates: Period, TimeType
 
 export Infinite, PosInf, NegInf, ∞, InfMinusInfError, InfExtendedReal, InfExtendedTime
 
