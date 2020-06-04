@@ -105,8 +105,8 @@ test_time = Time(1, 1, 1, 1)
         @test InfExtendedTime{Date}(∞) != InfExtendedTime{Date}(test_date)
         @test InfExtendedTime{Date}(test_date) != InfExtendedTime{Date}(∞)
 
-        @test hash(InfExtendedTime{Date}(∞)) == hash(InfExtendedTime{Date}(∞))
-        @test hash(InfExtendedTime{Date}(-∞)) == hash(InfExtendedTime{Date}(-∞))
+        @test hash(InfExtendedTime{Date}(∞)) != hash(InfExtendedTime{Date}(∞))
+        @test hash(InfExtendedTime{Date}(-∞)) != hash(InfExtendedTime{Date}(-∞))
         @test hash(InfExtendedTime{Date}(∞)) != hash(InfExtendedTime{Date}(-∞))
         @test hash(InfExtendedTime{Date}(test_date)) ==
             hash(InfExtendedTime{Date}(test_date))

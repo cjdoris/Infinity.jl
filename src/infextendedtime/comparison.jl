@@ -1,7 +1,9 @@
 Base.isfinite(x::InfExtendedTime) = x.flag == finite && isfinite(x.finitevalue)
 Base.isinf(x::InfExtendedTime) = isposinf(x) || isneginf(x)
 Base.:(==)(x::InfExtendedTime, y::InfExtendedTime) = (isfinite(x) && isfinite(y)) ? x.finitevalue == y.finitevalue : x.flag == y.flag
-Base.hash(x::InfExtendedTime, h::UInt) = isfinite(x) ? hash(x.finitevalue, h) : hash(x.flag, h)
+
+# Unsure how to currently hash this so InfExtendedTime{T}(∞) != InfExtended{T}(∞)
+#Base.hash(x::InfExtendedTime, h::UInt) = isfinite(x) ? hash(x.finitevalue, h) : hash(x.flag, h)
 
 function Base.isless(x::InfExtendedTime, y::InfExtendedTime)
     if isinf(x)
