@@ -16,18 +16,17 @@ InfExtendedTime{T}(x::InfExtendedTime) where {T<:TimeType} = InfExtendedTime{T}(
 InfExtendedTime{T}(x::InfExtendedTime{T}) where {T<:TimeType} = x
 
 """
-+     InfExtendedTime(T)
-+
-+ The union of `T` and `Infinite`: Since TimeType can't be represented by Inf, we
-+ just return `InfExtendedTime{T}`.
-+ """
+    InfExtendedTime(T)
+
+Return `InfExtendedTime{T}` for any TimeType `T`.
+"""
 @generated InfExtendedTime(::Type{T}) where {T<:TimeType} = InfExtendedTime{T}
 
 """
-+     InfExtendedTime(x)
-+
-+ Converts `x` to a `InfExtendedTime(typeof(x))`.
-+ """
+    InfExtendedTime(x)
+
+Converts `x` to `InfExtendedTime(typeof(x))`.
+"""
 @generated InfExtendedTime(x::T) where {T<:TimeType} = :($(InfExtendedTime(T))(x))
 
 Utils.posinf(::Type{T}) where {T<:InfExtendedTime} = T(PosInf)
