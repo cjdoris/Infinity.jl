@@ -12,6 +12,7 @@ Base.promote_rule(::Type{InfExtended{T}}, ::Type{Infinite}) where {T<:Real} = In
   :(x.signbit ? $mkninf : $mkpinf)
 end
 @generated Base.convert(::Type{T}, x::InfExtended{S}) where {T<:Real,S<:Real} = :(convert($(typeof(convert(T,zero(S)))), x.val))
+Base.convert(::Type{Infinite}, x::InfExtended{T}) where {T<:Real} = isinf(x) ? Infinite(signbit(x)) : throw(InexactError(:convert,Infinite,x))
 Base.convert(::Type{Infinite}, x::Real) = isinf(x) ? Infinite(signbit(x)) : throw(InexactError(:convert,Infinite,x))
 Base.convert(::Type{Infinite}, x::Infinite) = x
 Base.convert(::Type{T}, x::S) where {T<:InfExtended, S<:Real} = T(x)
