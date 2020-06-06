@@ -1,4 +1,4 @@
-@enum InfFlag::UInt8 finite posinf neginf
+@enum InfFlag::UInt8 FINITE POSINF NEGINF
 
 """
     Infinite <: Real
