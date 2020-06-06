@@ -1,5 +1,8 @@
 # Infinity.jl
 
+[![Build Status](https://travis-ci.com/cjdoris/Infinity.jl.svg?branch=master)](https://travis-ci.com/cjdoris/Infinity.jl)
+[![CodeCov](https://codecov.io/gh/cjdoris/Infinity.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/cjdoris/Infinity.jl)
+
 Provides `∞ :: Infinite <: Real` representing positive infinity and `-∞` is negative infinity.
 
 Promotion between `Infinite` and some `T <: Real` will yield either:
@@ -22,13 +25,13 @@ Additionally there is a submodule `Utils` exporting infinity-related functions:
 
 In Julia, type `]` then run
 
-```
-pkg> install https://github.com/cjdoris/Infinity.jl
+```julia
+pkg> add Infinity
 ```
 
 ## Example
 
-```
+```julia
 julia> using Infinity
 
 julia> x = [1,2,3,∞,-1,-∞]
