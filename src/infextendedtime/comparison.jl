@@ -4,8 +4,7 @@ Base.:(==)(x::InfExtendedTime, y::InfExtendedTime) = (isfinite(x) && isfinite(y)
 Base.:(==)(x::Infinite, y::T) where {T<:InfExtendedTime} = T(x) == y
 Base.:(==)(x::T, y::Infinite) where {T<:InfExtendedTime} = x == T(y)
 
-# Unsure how to currently hash this so InfExtendedTime{T}(∞) != InfExtended{T}(∞)
-#Base.hash(x::InfExtendedTime, h::UInt) = isfinite(x) ? hash(x.finitevalue, h) : hash(x.flag, h)
+Base.hash(x::InfExtendedTime, h::UInt) = isfinite(x) ? hash(x.finitevalue, h) : hash(x.flag, h)
 
 function Base.isless(x::InfExtendedTime, y::InfExtendedTime)
     if isinf(x)
