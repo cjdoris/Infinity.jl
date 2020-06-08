@@ -8,6 +8,10 @@ using Infinity, Infinity.Utils, Test, Dates
   end
 
   @testset "Infinite" begin
+    @testset "identity" begin
+        @test Infinite(∞) == ∞
+    end
+
     @testset "rand" begin
       @test typeof(rand(Infinite)) === Infinite
     end
