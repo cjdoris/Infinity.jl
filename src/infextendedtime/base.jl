@@ -7,8 +7,8 @@ struct InfExtendedTime{T<:TimeType} <: TimeType
     flag :: InfFlag
     finitevalue :: T
 
-    InfExtendedTime{T}(x::T) where {T<:TimeType} = new{T}(finite, x)
-    InfExtendedTime{T}(x::Infinite) where {T<:TimeType} = new{T}(x==PosInf ? posinf : neginf)
+    InfExtendedTime{T}(x::T) where {T<:TimeType} = new{T}(FINITE, x)
+    InfExtendedTime{T}(x::Infinite) where {T<:TimeType} = new{T}(x==PosInf ? POSINF : NEGINF)
 end
 
 InfExtendedTime{T}(x::TimeType) where {T<:TimeType} = InfExtendedTime{T}(convert(T, x))
@@ -31,5 +31,5 @@ InfExtendedTime(x::T) where {T<:TimeType} = InfExtendedTime{T}(x)
 
 Utils.posinf(::Type{T}) where {T<:InfExtendedTime} = T(PosInf)
 Utils.neginf(::Type{T}) where {T<:InfExtendedTime} = T(NegInf)
-Utils.isposinf(x::InfExtendedTime) = x.flag == posinf
-Utils.isneginf(x::InfExtendedTime) = x.flag == neginf
+Utils.isposinf(x::InfExtendedTime) = x.flag == POSINF
+Utils.isneginf(x::InfExtendedTime) = x.flag == NEGINF

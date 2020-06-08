@@ -1,4 +1,4 @@
-Base.isfinite(x::InfExtendedTime) = x.flag == finite && isfinite(x.finitevalue)
+Base.isfinite(x::InfExtendedTime) = x.flag == FINITE && isfinite(x.finitevalue)
 Base.isinf(x::InfExtendedTime) = isposinf(x) || isneginf(x)
 Base.:(==)(x::InfExtendedTime, y::InfExtendedTime) = (isfinite(x) && isfinite(y)) ? x.finitevalue == y.finitevalue : x.flag == y.flag
 Base.:(==)(x::Infinite, y::T) where {T<:InfExtendedTime} = T(x) == y
