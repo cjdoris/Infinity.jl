@@ -7,8 +7,10 @@ using Infinity, Infinity.Utils, Test
     @test hasinf(Rational{Int})
   end
 
-  @testset "rand" begin
-    @test typeof(rand(Infinite)) === Infinite
+  @testset "Infinite" begin
+    @testset "rand" begin
+      @test typeof(rand(Infinite)) === Infinite
+    end
   end
 
   include("infextendedreal.jl")

@@ -2,8 +2,10 @@ module Infinity
 
 export Infinite, PosInf, NegInf, ∞, InfMinusInfError, InfExtendedReal
 
+# Utils
+include("utils.jl")
+
 # Infinite
-include("infinite/utils.jl")
 include("infinite/base.jl")
 include("infinite/arithmetic.jl")
 include("infinite/io.jl")
