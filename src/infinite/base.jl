@@ -13,6 +13,8 @@ end
 const PosInf = Infinite(false)
 const NegInf = Infinite(true)
 const ∞ = PosInf
+Infinite(x::Infinite) = x
+
 
 """
     InfMinusInfError()
