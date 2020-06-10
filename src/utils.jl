@@ -51,4 +51,3 @@ module Utils
 end
 
 using .Utils
-

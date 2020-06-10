@@ -1,4 +1,4 @@
-using Infinity, Infinity.Utils, Test
+using Infinity, Infinity.Utils, Test, Dates
 
 @testset "Infinity" begin
   @testset "utils" begin
@@ -8,10 +8,15 @@ using Infinity, Infinity.Utils, Test
   end
 
   @testset "Infinite" begin
+    @testset "identity" begin
+        @test Infinite(∞) == ∞
+    end
+
     @testset "rand" begin
       @test typeof(rand(Infinite)) === Infinite
     end
   end
 
   include("infextendedreal.jl")
+  include("infextendedtime.jl")
 end
