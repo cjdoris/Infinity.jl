@@ -10,7 +10,7 @@ Base.:-(x::T) where {T<:InfExtendedReal} = T(-x.val)
 
 Base.:+(x::T, y::T) where {T<:InfExtendedReal} = isinf(x) ? isinf(y) ? T(x.val+y.val) : x : isinf(y) ? y : T(x.val+y.val)
 
-Base.:-(x::T, y::T) where {T<:InfExtendedReal} = isinf(x) ? isinf(y) ? T(x.val - y.val) : x : isinf(y) ? -y : T(x.val-y.val)
+Base.:-(x::T, y::T) where {T<:InfExtendedReal} = isinf(x) ? isinf(y) ? T(x.val-y.val) : x : isinf(y) ? -y : T(x.val-y.val)
 
 Base.:*(x::T, y::T) where {T<:InfExtendedReal} =
   if isinf(x)

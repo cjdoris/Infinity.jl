@@ -4,9 +4,24 @@
 The type `T` extended with positive and negative infinity.
 """
 struct InfExtendedReal{T<:Real} <: Real
-  val :: Union{T, Infinite}
-  InfExtendedReal{T}(x::Infinite) where {T<:Real} = new(x)
-  InfExtendedReal{T}(x::T) where {T<:Real} = new(x)
+  flag :: InfFlag
+  finitevalue :: T
+
+  InfExtendedReal{T}(x::T) where {T<:Real} = new(FINITE, x)
+  InfExtendedReal{T}(x::Infinite) where {T<:Real} = new(x==PosInf ? POSINF : NEGINF)
+end
+
+"""
+Since InfExtendedReal is a subtype of Real, and Infinite is also a subtype of real,
+we can just use `x.val` to get either the finite value, or the infinite value. This will
+make arithmetic much simpler.
+"""
+function Base.getproperty(x::InfExtendedReal, s::Symbol)
+    if s === :val
+        return isinf(x) ? (isneginf(x) ? -∞ : ∞) : x.finitevalue
+    else
+        return getfield(x, s)
+    end
 end
 
 InfExtendedReal{T}(x::Real) where {T<:Real} = InfExtendedReal{T}(isinf(x) ? convert(Infinite, x) : convert(T, x))
@@ -30,5 +45,5 @@ Converts `x` to a `InfExtendedReal(typeof(x))`.
 
 Utils.posinf(::Type{T}) where {T<:InfExtendedReal} = T(PosInf)
 Utils.neginf(::Type{T}) where {T<:InfExtendedReal} = T(NegInf)
-Utils.isposinf(x::InfExtendedReal) = isposinf(x.val)
-Utils.isneginf(x::InfExtendedReal) = isneginf(x.val)
+Utils.isposinf(x::InfExtendedReal) = x.flag == POSINF
+Utils.isneginf(x::InfExtendedReal) = x.flag == NEGINF
