@@ -1,4 +1,4 @@
-Base.isfinite(x::InfExtendedReal) = x.flag == FINITE
+Base.isfinite(x::InfExtendedReal) = x.flag == FINITE && isfinite(x.finitevalue)
 
 Base.isinf(x::InfExtendedReal) = isposinf(x) || isneginf(x)
 
