@@ -11,11 +11,9 @@ struct InfExtendedReal{T<:Real} <: Real
   InfExtendedReal{T}(x::Infinite) where {T<:Real} = new(x==PosInf ? POSINF : NEGINF)
 end
 
-"""
-Since InfExtendedReal is a subtype of Real, and Infinite is also a subtype of real,
-we can just use `x.val` to get either the finite value, or the infinite value. This will
-make arithmetic much simpler.
-"""
+# Since InfExtendedReal is a subtype of Real, and Infinite is also a subtype of real,
+# we can just use `x.val` to get either the finite value, or the infinite value. This will
+# make arithmetic much simpler.
 function Base.getproperty(x::InfExtendedReal, s::Symbol)
     if s === :val
         return isinf(x) ? (isneginf(x) ? -∞ : ∞) : x.finitevalue

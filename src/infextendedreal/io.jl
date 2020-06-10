@@ -1,5 +1,5 @@
 function Base.show(io::IO, x::T) where {T<:InfExtendedReal}
-    value = isposinf(x) ? ∞ : isneginf(x) ? -∞ : x.finitevalue
+    value = x.val
     if get(io, :compact, false)
         print(io, value)
     else
