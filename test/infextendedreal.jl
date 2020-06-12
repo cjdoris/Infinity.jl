@@ -146,6 +146,7 @@
         @test InfExtendedReal(2) + InfExtendedReal(3) == InfExtendedReal(5)
         @test InfExtendedReal(3) - InfExtendedReal(2) == InfExtendedReal(1)
         @test InfExtendedReal(2) * InfExtendedReal(3) == InfExtendedReal(6)
+        @test InfExtendedReal{Int}(∞) * InfExtendedReal{Int}(∞) == InfExtendedReal{Int}(∞)
         @test_throws DivideError InfExtendedReal(0) * InfExtendedReal{Int}(∞)
         @test InfExtendedReal(10) / InfExtendedReal(5) == InfExtendedReal(2)
         @test_throws DivideError InfExtendedReal{Int}(∞) / InfExtendedReal{Int}(∞)
@@ -154,6 +155,7 @@
         @test abs(InfExtendedReal(-5)) == InfExtendedReal(5)
 
         @test InfExtendedReal(1) // InfExtendedReal(0) == InfExtendedReal(1//0)
+        @test_throws DivideError InfExtendedReal{Int}(∞) // InfExtendedReal{Int}(∞)
         @test InfExtendedReal(1) // 0 == InfExtendedReal(1//0)
         @test 1 // InfExtendedReal(0) == InfExtendedReal(1//0)
     end

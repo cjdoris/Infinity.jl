@@ -4,6 +4,8 @@
         @inferred Infinite(true)
         @inferred Infinite(false)
 
+        @test Infinite(∞) == ∞
+
         buf = IOBuffer()
         showerror(buf, InfMinusInfError())
         msg = String(take!(buf))
