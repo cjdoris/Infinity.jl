@@ -36,6 +36,8 @@
 
         @test convert(Infinite, ∞) == ∞
 
+        @test Float64(∞) == Inf
+
         @test one(Infinite) == Infinity.UnknownReal
         @test zero(Infinite) == Infinity.UnknownReal
         @test float(Infinite) == float(Int)

@@ -49,12 +49,12 @@
     end
 
     @testset "Conversion" begin
-        @test promote_type(Infinite, Float64) === InfExtendedReal(Float64)
-        @test promote_type(InfExtendedReal{Int64}, InfExtendedReal{Float64}) === Float64
-        @test promote_type(InfExtendedReal{Int32}, InfExtendedReal{Int64}) ===
+        @test promote_rule(Infinite, Float64) === InfExtendedReal(Float64)
+        @test promote_rule(InfExtendedReal{Int64}, InfExtendedReal{Float64}) === Float64
+        @test promote_rule(InfExtendedReal{Int32}, InfExtendedReal{Int64}) ===
             InfExtendedReal{Int64}
-        @test promote_type(InfExtendedReal{Int64}, Float64) === Float64
-        @test promote_type(InfExtendedReal{Int64}, Infinite) === InfExtendedReal{Int64}
+        @test promote_rule(InfExtendedReal{Int64}, Float64) === Float64
+        @test promote_rule(InfExtendedReal{Int64}, Infinite) === InfExtendedReal{Int64}
 
         @test convert(Int64, InfExtendedReal{Float64}(2.0)) == 2
         @test convert(Infinite, InfExtendedReal{Int}(∞)) === ∞
@@ -73,34 +73,24 @@
     end
 
     @testset "comparisons" begin
-        @test !isfinite(∞)
         @test !isfinite(InfExtendedReal{Int}(∞))
         @test isfinite(InfExtendedReal(-4))
         @test !isfinite(InfExtendedReal{Float64}(Inf))
 
-        @test isinf(∞)
         @test isinf(InfExtendedReal{Int}(∞))
         @test !isinf(InfExtendedReal(9))
         @test isinf(InfExtendedReal{Float64}(Inf))
 
-        @test ∞ == ∞
-        @test ∞ == Inf
         @test InfExtendedReal(5) == 5
         @test InfExtendedReal(7) == 7.0
         @test InfExtendedReal(4) != InfExtendedReal(1)
 
-        @test hash(∞) == hash(Inf)
-        # This seems to only be true on AMD64 CPUs?
-        # @test hash(InfExtendedReal{Int}(∞)) != hash(Inf)
         @test hash(InfExtendedReal(3)) == hash(3)
 
-        @test ∞ ≤ ∞
-        @test 1 ≤ ∞
-        @test -∞ ≤ -∞
-        @test !(∞ ≤ 0)
+        @test InfExtendedReal(2) < InfExtendedReal{Int}(∞)
+        @test InfExtendedReal{Int}(-∞) < InfExtendedReal(2)
+        @test InfExtendedReal(2) <= InfExtendedReal(4)
 
-        @test !signbit(∞)
-        @test signbit(-∞)
         @test !signbit(InfExtendedReal{Int}(∞))
         @test signbit(InfExtendedReal{Int}(-∞))
         @test !signbit(InfExtendedReal(20))
@@ -117,7 +107,7 @@
         @inferred sign(InfExtendedReal(2))
         @inferred sign(InfExtendedReal{Int32}(∞))
 
-        @test isapprox(InfExtendedReal(2.000000001), InfExtendedReal(2.0000000004))
+        @test isapprox(InfExtendedReal{Float64}(2.000000001), InfExtendedReal{Float64}(2.0000000004))
     end
 
     @testset "arithmetic" begin
