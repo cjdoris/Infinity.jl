@@ -1,4 +1,8 @@
-using Infinity, Infinity.Utils, Random, Test
+using Compat
+using Infinity
+using Infinity.Utils
+using Random
+using Test
 
 @testset "Infinity" begin
     include("utils.jl")

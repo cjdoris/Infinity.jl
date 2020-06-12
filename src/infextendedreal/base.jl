@@ -43,5 +43,5 @@ Converts `x` to a `InfExtendedReal(typeof(x))`.
 
 Utils.posinf(::Type{T}) where {T<:InfExtendedReal} = T(PosInf)
 Utils.neginf(::Type{T}) where {T<:InfExtendedReal} = T(NegInf)
-Utils.isposinf(x::InfExtendedReal) = x.flag == POSINF
-Utils.isneginf(x::InfExtendedReal) = x.flag == NEGINF
+Utils.isposinf(x::InfExtendedReal) = x.flag == POSINF || isposinf(x.finitevalue)
+Utils.isneginf(x::InfExtendedReal) = x.flag == NEGINF || isneginf(x.finitevalue)
