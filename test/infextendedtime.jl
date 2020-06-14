@@ -76,11 +76,11 @@ test_time = Time(1, 1, 1, 1)
     end
 
     @testset "Conversion" begin
-        @test promote_type(InfExtendedTime{DateTime}, InfExtendedTime{Date}) ==
+        @test promote_rule(InfExtendedTime{DateTime}, InfExtendedTime{Date}) ==
             InfExtendedTime{DateTime}
-        @test promote_type(InfExtendedTime{DateTime}, Date) == InfExtendedTime{DateTime}
-        @test promote_type(InfExtendedTime{Date}, Infinite) == InfExtendedTime{Date}
-        @test promote_type(Infinite, Date) == InfExtendedTime{Date}
+        @test promote_rule(InfExtendedTime{DateTime}, Date) == InfExtendedTime{DateTime}
+        @test promote_rule(InfExtendedTime{Date}, Infinite) == InfExtendedTime{Date}
+        @test promote_rule(Infinite, Date) == InfExtendedTime{Date}
 
         @test convert(InfExtendedTime{Date}, test_datetime) ==
             InfExtendedTime{Date}(test_date)
@@ -149,6 +149,7 @@ test_time = Time(1, 1, 1, 1)
         @test ninf < ∞
         @test inf <= ∞
         @test ninf <= -∞
+        @test -∞ <= ninf
     end
 
     @testset "Arithmetic" begin
@@ -156,7 +157,9 @@ test_time = Time(1, 1, 1, 1)
         @test typemax(InfExtendedTime{Date}) == InfExtendedTime{Date}(∞)
 
         @test InfExtendedTime(test_date) + Day(1) == InfExtendedTime(test_date + Day(1))
+        @test Day(1) + InfExtendedTime(test_date) == InfExtendedTime(test_date + Day(1))
         @test InfExtendedTime(test_date) - Day(1) == InfExtendedTime(test_date - Day(1))
+        @test Day(1) - InfExtendedTime(test_date) == InfExtendedTime(test_date - Day(1))
         @test InfExtendedTime{Date}(∞) + Day(1) == InfExtendedTime{Date}(∞)
         @test InfExtendedTime{Date}(∞) - Day(1) == InfExtendedTime{Date}(∞)
         @test InfExtendedTime{Date}(-∞) + Day(1) == InfExtendedTime{Date}(-∞)
