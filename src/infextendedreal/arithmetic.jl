@@ -1,9 +1,4 @@
 # todo: ^, fma, muladd, div, fld, cld, rem, mod, mod1, fld1
-
-Base.typemin(::Type{T}) where {T<:InfExtendedReal} = T(NegInf)
-
-Base.typemax(::Type{T}) where {T<:InfExtendedReal} = T(PosInf)
-
 Base.:+(x::T) where {T<:InfExtendedReal} = T(+x.val)
 
 Base.:-(x::T) where {T<:InfExtendedReal} = T(-x.val)

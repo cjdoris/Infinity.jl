@@ -49,7 +49,7 @@
     end
 
     @testset "Conversion" begin
-        @test promote_rule(Infinite, Float64) === InfExtendedReal(Float64)
+        @test promote_rule(Infinite, Float64) === InfExtendedReal{Float64}
         @test promote_rule(InfExtendedReal{Int64}, InfExtendedReal{Float64}) === Float64
         @test promote_rule(InfExtendedReal{Int32}, InfExtendedReal{Int64}) ===
             InfExtendedReal{Int64}
@@ -113,13 +113,13 @@
     @testset "arithmetic" begin
         @inferred -∞
         @inferred InfExtendedReal 2 + ∞
-        @inferred ∞ + 2.3
+        @inferred InfExtendedReal ∞ + 2.3
         @test_throws InfMinusInfError ∞+(-∞)
         @inferred InfExtendedReal 10 - ∞
         @inferred InfExtendedReal 10.0 - ∞
         @test_throws InfMinusInfError ∞-∞
         @inferred InfExtendedReal 2 * ∞
-        @inferred ∞ * 1.0
+        @inferred InfExtendedReal ∞ * 1.0
         @test_throws DivideError ∞ * 0
         @inferred Float64 1 / ∞
         @inferred Float64 1.2 / ∞

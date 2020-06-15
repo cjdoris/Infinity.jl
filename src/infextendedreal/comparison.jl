@@ -1,7 +1,3 @@
-Base.isfinite(x::InfExtendedReal) = x.flag == FINITE && isfinite(x.finitevalue)
-
-Base.isinf(x::InfExtendedReal) = isposinf(x) || isneginf(x)
-
 Base.:(==)(x::InfExtendedReal, y::InfExtendedReal) = isinf(x)==isinf(y) && x.val==y.val
 
 Base.hash(x::InfExtendedReal, h::UInt) = hash(x.val, h)
@@ -14,8 +10,6 @@ Base.:<(x::InfExtendedReal, y::InfExtendedReal) =
   else
     x.val < y.val
   end
-
-Base.:≤(x::InfExtendedReal, y::InfExtendedReal) = !(y < x)
 
 Base.signbit(x::InfExtendedReal) = signbit(x.val)
 
