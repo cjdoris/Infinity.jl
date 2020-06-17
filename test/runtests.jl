@@ -4,6 +4,7 @@ using Infinity
 using Infinity.Utils
 using Random
 using Test
+using TimeZones: ZonedDateTime
 
 @testset "Infinity" begin
     include("utils.jl")

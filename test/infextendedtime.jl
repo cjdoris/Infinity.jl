@@ -92,6 +92,9 @@ test_time = Time(1, 1, 1, 1)
         @test convert(InfExtendedTime{Date}, InfExtendedTime{DateTime}(test_datetime)) ==
             InfExtendedTime{Date}(InfExtendedTime{DateTime}(test_datetime))
         @test convert(InfExtendedTime{Date}, ∞) == InfExtendedTime{Date}(∞)
+
+        @test promote_rule(InfExtendedTime{ZonedDateTime}, ZonedDateTime) ==
+            InfExtendedTime{ZonedDateTime}
     end
 
     @testset "Comparison" begin

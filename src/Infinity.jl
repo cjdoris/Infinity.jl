@@ -1,6 +1,7 @@
 module Infinity
 
 using Dates: Period, TimeType, UTInstant
+using TimeZones: ZonedDateTime
 
 export Infinite, PosInf, NegInf, ∞, InfMinusInfError, InfExtendedReal, InfExtendedTime
 
