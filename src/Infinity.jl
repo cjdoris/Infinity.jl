@@ -1,9 +1,13 @@
 module Infinity
 
 using Dates: Period, TimeType, UTInstant
-using TimeZones: ZonedDateTime
+using Requires
 
 export Infinite, PosInf, NegInf, ∞, InfMinusInfError, InfExtendedReal, InfExtendedTime
+
+function __init__()
+    @require TimeZones="f269a46b-ccf7-5d73-abea-4c690281aa53" include("infextendedtime/timezones.jl")
+end
 
 # Utils
 include("utils.jl")
