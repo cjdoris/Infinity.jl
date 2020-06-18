@@ -18,15 +18,14 @@ include("infinite/rand.jl")
 # InfExtendedReal
 include("infextendedreal/base.jl")
 include("infextendedreal/arithmetic.jl")
-include("infextendedreal/io.jl")
 include("infextendedreal/comparison.jl")
 include("infextendedreal/conversion.jl")
 
 # InfExtendedTime
 include("infextendedtime/base.jl")
-include("infextendedtime/io.jl")
 include("infextendedtime/arithmetic.jl")
 include("infextendedtime/comparison.jl")
-include("infextendedtime/conversion.jl")
 
+# Extended Common Functions
+include("common.jl")
 end

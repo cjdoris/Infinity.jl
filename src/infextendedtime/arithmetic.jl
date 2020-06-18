@@ -1,12 +1,9 @@
-Base.typemin(::Type{T}) where {T<:InfExtendedTime} = neginf(T)
-Base.typemax(::Type{T}) where {T<:InfExtendedTime} = posinf(T)
-
 function Base.:+(x::T, y::S) where {T<:InfExtendedTime, S<:Period}
     isinf(x) ? x : T(x.finitevalue + y)
 end
 Base.:+(x::S, y::T) where {T<:InfExtendedTime, S<:Period} = y + x
 Base.:-(x::T, y::S) where {T<:InfExtendedTime, S<:Period} = x + -y
-Base.:-(x::S, y::T) where {T<:InfExtendedTime, S<:Period} = isposinf(y) ? Utils.neginf(T) : y + -x
+Base.:-(x::S, y::T) where {T<:InfExtendedTime, S<:Period} = isposinf(y) ? neginf(T) : y + -x
 
 for TType in (TimeType, Period)
     @eval begin

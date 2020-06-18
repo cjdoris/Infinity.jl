@@ -24,7 +24,6 @@ end
 
 InfExtendedReal{T}(x::Real) where {T<:Real} = InfExtendedReal{T}(isinf(x) ? convert(Infinite, x) : convert(T, x))
 InfExtendedReal{T}(x::InfExtendedReal) where {T<:Real} = InfExtendedReal{T}(x.val)
-InfExtendedReal{T}(x::InfExtendedReal{T}) where {T<:Real} = x
 
 """
     InfExtendedReal(T)
@@ -41,7 +40,5 @@ Converts `x` to a `InfExtendedReal(typeof(x))`.
 @generated InfExtendedReal(x::T) where {T<:Real} = hasinf(T) ? :x : :($(InfExtendedReal(T))(x))
 
 
-Utils.posinf(::Type{T}) where {T<:InfExtendedReal} = T(PosInf)
-Utils.neginf(::Type{T}) where {T<:InfExtendedReal} = T(NegInf)
 Utils.isposinf(x::InfExtendedReal) = x.flag == POSINF || isposinf(x.finitevalue)
 Utils.isneginf(x::InfExtendedReal) = x.flag == NEGINF || isneginf(x.finitevalue)
