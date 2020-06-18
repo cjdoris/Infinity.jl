@@ -60,6 +60,11 @@ test_time = Time(1, 1, 1, 1)
         @test !isneginf(InfExtendedTime{DateTime}(∞))
         @test isneginf(InfExtendedTime{DateTime}(-∞))
         @test !isneginf(dt)
+
+        inf = InfExtendedTime{Date}(∞)
+        @test d.instant == test_date.instant
+        @test t.instant == test_time.instant
+        @test inf.instant == ∞
     end
 
     @testset "IO" begin
@@ -184,6 +189,16 @@ test_time = Time(1, 1, 1, 1)
         @test ∞ + test_date == ∞
         @test test_date + ∞ == ∞
         @test ∞ - test_date == ∞
-        @test test_date - ∞ == ∞
+        @test test_date - ∞ == -∞
+
+        @test ∞ + Day(1) == ∞
+        @test Day(1) + ∞ == ∞
+        @test ∞ - Day(1) == ∞
+        @test Day(1) - ∞ == -∞
+
+        @test ∞ + test_date.instant == ∞
+        @test test_date.instant + ∞ == ∞
+        @test ∞ - test_date.instant == ∞
+        @test test_date.instant - ∞ == -∞
     end
 end
