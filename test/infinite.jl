@@ -50,6 +50,8 @@
         @test !isfinite(-x)
         @test isinf(x)
         @test isinf(-x)
+        @test !iszero(x)
+        @test !iszero(-x)
         @test x == x
         @test x != -x
         @test hash(x) != hash(-x)
