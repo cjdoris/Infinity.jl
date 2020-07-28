@@ -97,6 +97,20 @@ test_time = Time(1, 1, 1, 1)
             InfExtendedTime{ZonedDateTime}
     end
 
+    @testset "Parse" begin
+        val = tryparse(InfExtendedTime{Date}, "∞")
+        @test val == ∞
+        @test val isa InfExtendedTime{Date}
+
+        val = tryparse(InfExtendedTime{Date}, "2012-01-01")
+        @test val == Date(2012, 1, 1)
+        @test val isa InfExtendedTime{Date}
+
+        val = tryparse(InfExtendedTime{Date}, "a")
+        @test val == nothing
+        @test val isa Nothing
+    end
+
     @testset "Comparison" begin
         @test isfinite(InfExtendedTime{Date}(test_date))
         @test !isfinite(InfExtendedTime{Date}(∞))
