@@ -16,7 +16,7 @@ end
 # make arithmetic much simpler.
 function Base.getproperty(x::InfExtendedReal, s::Symbol)
     if s === :val
-        return isinf(x) ? (isneginf(x) ? -∞ : ∞) : x.finitevalue
+        return x.flag != FINITE ? (x.flag == NEGINF ? -∞ : ∞) : x.finitevalue
     else
         return getfield(x, s)
     end
@@ -40,5 +40,5 @@ Converts `x` to a `InfExtendedReal(typeof(x))`.
 @generated InfExtendedReal(x::T) where {T<:Real} = hasinf(T) ? :x : :($(InfExtendedReal(T))(x))
 
 
-Utils.isposinf(x::InfExtendedReal) = x.flag == POSINF || isposinf(x.finitevalue)
-Utils.isneginf(x::InfExtendedReal) = x.flag == NEGINF || isneginf(x.finitevalue)
+Utils.isposinf(x::InfExtendedReal) = x.flag == POSINF || x.flag == FINITE && isposinf(x.finitevalue)
+Utils.isneginf(x::InfExtendedReal) = x.flag == NEGINF || x.flag == FINITE && isneginf(x.finitevalue)
