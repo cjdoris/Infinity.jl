@@ -62,6 +62,7 @@
     @testset "IO" begin
         x = InfExtendedReal{Int64}(2)
         i = InfExtendedReal{Int64}(∞)
+        f = InfExtendedReal{Float64}(Inf)
 
         @test string(x) == "InfExtendedReal{Int64}(2)"
         @test sprint(show, x, context=:compact=>true) == "2"
@@ -70,6 +71,10 @@
         @test string(i) == "InfExtendedReal{Int64}(∞)"
         @test sprint(show, i, context=:compact=>true) == "∞"
         @test sprint(show, i) == string(i)
+
+        @test string(f) == "InfExtendedReal{Float64}(Inf)"
+        @test sprint(show, f, context=:compact=>true) == "Inf"
+        @test sprint(show, f) == string(f)
     end
 
     @testset "Conversion" begin
