@@ -9,6 +9,11 @@ struct InfExtendedReal{T<:Real} <: Real
 
   InfExtendedReal{T}(x::T) where {T<:Real} = new(FINITE, x)
   InfExtendedReal{T}(x::Infinite) where {T<:Real} = new(x==PosInf ? POSINF : NEGINF)
+
+  # For internal testing use only
+  function Base.reinterpret(::Type{InfExtendedReal{T}}, t::Tuple{InfFlag, T}) where T<:Real
+      new{T}(t[1], t[2])
+  end
 end
 
 # Since InfExtendedReal is a subtype of Real, and Infinite is also a subtype of real,

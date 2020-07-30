@@ -37,26 +37,13 @@
         # Emulate issue https://github.com/cjdoris/Infinity.jl/issues/23 where
         # `InfExtendedReal{Float64}(-∞)` was called and the undefined `Float64` bits ended
         # up being an `Inf` with the opposite sign.
-        #
-        # Note: Since we're relying on non-deterministic behaviour of undefined fields we
-        # need to limit the possiblities for `finitevalue` such that we get an infinite
-        # value with the opposite sign from `flag`. By using `Infinite` we ensure we always
-        # have a infinite value but we cannot be sure that `finitevalue` and `flag` have
-        # opposite signs. Finally, defining two instances improves our chances of producing
-        # a instance with opposite signs.
-        x = InfExtendedReal{InfExtendedReal{Infinite}}(-∞)
-        y = InfExtendedReal{InfExtendedReal{Infinite}}(∞)
-        # @assert x.finitevalue == ∞ || y.finitevalue == -∞  # Cannot be guaranteed
-
+        x = reinterpret(InfExtendedReal{Float64}, (Infinity.NEGINF, Inf))
         @test x.flag == Infinity.NEGINF
+        @test x.finitevalue == Inf
+
         @test x.val == -∞
         @test isneginf(x)
         @test !isposinf(x)
-
-        @test y.flag == Infinity.POSINF
-        @test y.val == ∞
-        @test !isneginf(y)
-        @test isposinf(y)
     end
 
     @testset "IO" begin
