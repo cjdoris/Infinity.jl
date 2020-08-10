@@ -44,6 +44,12 @@
         @test float(Infinity.UnknownReal) == float(Int)
     end
 
+    @testset "Parse" begin
+        @test tryparse(Infinite, "∞") === ∞
+        @test tryparse(Infinite, "-∞") === -∞
+        @test tryparse(Infinite, "1") === nothing
+    end
+
     @testset "Comparison" begin
         x = ∞
         @test !isfinite(x)

@@ -72,6 +72,20 @@
         @test float(InfExtendedReal) === Float64
     end
 
+    @testset "Parse" begin
+        val = tryparse(InfExtendedReal{Int}, "∞")
+        @test val == ∞
+        @test val isa InfExtendedReal{Int}
+
+        val = tryparse(InfExtendedReal{Int}, "1")
+        @test val == 1
+        @test val isa InfExtendedReal{Int}
+
+        val = tryparse(InfExtendedReal{Int}, "a")
+        @test val == nothing
+        @test val isa Nothing
+    end
+
     @testset "comparisons" begin
         @test !isfinite(InfExtendedReal{Int}(∞))
         @test isfinite(InfExtendedReal(-4))

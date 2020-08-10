@@ -18,6 +18,7 @@ include("infinite/arithmetic.jl")
 include("infinite/io.jl")
 include("infinite/comparison.jl")
 include("infinite/conversion.jl")
+include("infinite/parse.jl")
 include("infinite/rand.jl")
 
 # InfExtendedReal
@@ -25,11 +26,13 @@ include("infextendedreal/base.jl")
 include("infextendedreal/arithmetic.jl")
 include("infextendedreal/comparison.jl")
 include("infextendedreal/conversion.jl")
+include("infextendedreal/parse.jl")
 
 # InfExtendedTime
 include("infextendedtime/base.jl")
 include("infextendedtime/arithmetic.jl")
 include("infextendedtime/comparison.jl")
+include("infextendedtime/parse.jl")
 
 # Extended Common Functions
 include("common.jl")
