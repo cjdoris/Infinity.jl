@@ -81,6 +81,10 @@
         @test !isinf(InfExtendedReal(9))
         @test isinf(InfExtendedReal{Float64}(Inf))
 
+        @test !iszero(InfExtendedReal{Int}(∞))
+        @test iszero(InfExtendedReal(0))
+        @test !iszero(InfExtendedReal{Float64}(Inf))
+
         @test InfExtendedReal(5) == 5
         @test InfExtendedReal(7) == 7.0
         @test InfExtendedReal(4) != InfExtendedReal(1)
