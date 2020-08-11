@@ -71,7 +71,7 @@ test_time = Time(1, 1, 1, 1)
         d = InfExtendedTime{Date}(test_date)
         i = InfExtendedTime{Date}(∞)
 
-        @test string(d) == "InfExtendedTime{Date}(2012-01-01)"
+        @test string(d) == "InfExtendedTime{Date}($(repr(test_date)))"
         @test sprint(show, d, context=:compact=>true) == "2012-01-01"
         @test sprint(show, d) == string(d)
 
