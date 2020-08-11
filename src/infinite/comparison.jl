@@ -5,6 +5,8 @@ Base.isinf(x::Infinite) = true
 Base.iszero(::Infinite) = false
 
 Base.:(==)(x::Infinite, y::Infinite) = x.signbit == y.signbit
+Base.:(==)(x::Infinite, y::Real) = isinf(y) && signbit(x) == signbit(y)
+Base.:(==)(x::Real, y::Infinite) = y == x
 
 Base.hash(x::Infinite, h::UInt) = hash(isposinf(x) ? Inf : -Inf, h)
 

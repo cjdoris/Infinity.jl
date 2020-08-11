@@ -59,7 +59,11 @@
         @test !iszero(x)
         @test !iszero(-x)
         @test x == x
+        @test x == Inf
+        @test Inf == x
         @test x != -x
+        @test x != -Inf
+        @test Inf != -x
         @test hash(x) != hash(-x)
         @test -x < x
         @test x > -x
