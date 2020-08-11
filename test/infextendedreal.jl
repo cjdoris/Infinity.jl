@@ -33,11 +33,23 @@
         @test !isneginf(inf)
         @test !isposinf(ninf)
         @test isneginf(ninf)
+
+        # Emulate issue https://github.com/cjdoris/Infinity.jl/issues/23 where
+        # `InfExtendedReal{Float64}(-∞)` was called and the undefined `Float64` bits ended
+        # up being an `Inf` with the opposite sign.
+        x = reinterpret(InfExtendedReal{Float64}, (Infinity.NEGINF, Inf))
+        @test x.flag == Infinity.NEGINF
+        @test x.finitevalue == Inf
+
+        @test x.val == -∞
+        @test isneginf(x)
+        @test !isposinf(x)
     end
 
     @testset "IO" begin
         x = InfExtendedReal{Int64}(2)
         i = InfExtendedReal{Int64}(∞)
+        f = InfExtendedReal{Float64}(Inf)
 
         @test string(x) == "InfExtendedReal{Int64}(2)"
         @test sprint(show, x, context=:compact=>true) == "2"
@@ -46,6 +58,10 @@
         @test string(i) == "InfExtendedReal{Int64}(∞)"
         @test sprint(show, i, context=:compact=>true) == "∞"
         @test sprint(show, i) == string(i)
+
+        @test string(f) == "InfExtendedReal{Float64}(Inf)"
+        @test sprint(show, f, context=:compact=>true) == "Inf"
+        @test sprint(show, f) == string(f)
     end
 
     @testset "Conversion" begin

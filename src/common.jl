@@ -14,12 +14,11 @@ for (Name, T) in ((InfExtendedReal, Real), (InfExtendedTime, TimeType))
 
         # io.jl
         function Base.show(io::IO, x::T) where {T<:$Name}
-            value = isposinf(x) ? ∞ : isneginf(x) ? -∞ : x.finitevalue
             if get(io, :compact, false)
-                print(io, value)
+                print(io, x.val)
             else
                 print(io, "$T(")
-                show(io, value)
+                show(io, x.val)
                 print(io, ")")
             end
         end

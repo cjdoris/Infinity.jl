@@ -12,12 +12,10 @@ struct InfExtendedTime{T<:TimeType} <: TimeType
 end
 
 function Base.getproperty(x::InfExtendedTime, s::Symbol)
-    if s === :instant
-        if isinf(x)
-            return isposinf(x) ? ∞ : -∞
-        else
-            return x.finitevalue.instant
-        end
+    if s === :val
+        return x.flag != FINITE ? (x.flag == NEGINF ? -∞ : ∞) : x.finitevalue
+    elseif s === :instant
+        return x.flag != FINITE ? (x.flag == NEGINF ? -∞ : ∞) : x.finitevalue.instant
     else
         return getfield(x, s)
     end
