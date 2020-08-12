@@ -128,6 +128,7 @@
         @test InfExtendedReal(5) == 5
         @test InfExtendedReal(7) == 7.0
         @test InfExtendedReal(4) != InfExtendedReal(1)
+        @test InfExtendedReal(Inf) == InfExtendedReal(∞)
 
         @test hash(InfExtendedReal(3)) == hash(3)
 
