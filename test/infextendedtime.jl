@@ -109,6 +109,16 @@ test_time = Time(1, 1, 1, 1)
         val = tryparse(InfExtendedTime{Date}, "a")
         @test val == nothing
         @test val isa Nothing
+
+        val = parse(InfExtendedTime{Date}, "∞")
+        @test val == ∞
+        @test val isa InfExtendedTime{Date}
+
+        val = parse(InfExtendedTime{Date}, "2012-01-01")
+        @test val == Date(2012, 1, 1)
+        @test val isa InfExtendedTime{Date}
+
+        @test_throws ArgumentError parse(InfExtendedTime{Date}, "a")
     end
 
     @testset "Comparison" begin

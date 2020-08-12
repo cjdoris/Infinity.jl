@@ -48,6 +48,10 @@
         @test tryparse(Infinite, "∞") === ∞
         @test tryparse(Infinite, "-∞") === -∞
         @test tryparse(Infinite, "1") === nothing
+
+        @test parse(Infinite, "∞") === ∞
+        @test parse(Infinite, "-∞") === -∞
+        @test_throws ArgumentError parse(Infinite, "1")
     end
 
     @testset "Comparison" begin

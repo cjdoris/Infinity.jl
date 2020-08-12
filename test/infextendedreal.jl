@@ -100,6 +100,16 @@
         val = tryparse(InfExtendedReal{Int}, "a")
         @test val == nothing
         @test val isa Nothing
+
+        val = parse(InfExtendedReal{Int}, "∞")
+        @test val == ∞
+        @test val isa InfExtendedReal{Int}
+
+        val = parse(InfExtendedReal{Int}, "1")
+        @test val == 1
+        @test val isa InfExtendedReal{Int}
+
+        @test_throws ArgumentError parse(InfExtendedReal{Int}, "a")
     end
 
     @testset "comparisons" begin
